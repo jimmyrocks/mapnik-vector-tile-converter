@@ -1,6 +1,6 @@
 var assert = require('assert');
-var director = require('../director.js');
-var builder = require('../builder.js');
+var director = require('../src/director.js');
+var builder = require('../src/builder.js');
 var sinon = require('sinon');
 
 

@@ -1,5 +1,7 @@
 // Builder class describing operations on Mapnik-vector-tiles's geometries
 
+var util = require('./util.js');
+
 function Builder() {
     this.tileRelativeGeometry = [];
 }
@@ -29,14 +31,6 @@ Builder.prototype.lineTo = function lineTo(x, y) {
 };
 
 Builder.prototype.closePath = function closePath() {};
-
-var decode_sint32 = function (encoded_value) { // decode zigzag encoding
-    if (encoded_value % 2 == 0) {
-        return encoded_value / 2;
-    } else {
-        return - (encoded_value + 1) / 2;
-    }
-};
 
 Builder.prototype.getTileRelativeGeometry = function getTileRelativeGeometry() {
     return this.tileRelativeGeometry;

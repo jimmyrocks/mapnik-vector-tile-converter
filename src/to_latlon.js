@@ -1,11 +1,7 @@
-var proj_miny = -90;
-var proj_maxy = 90;
-var proj_minx = -180;
-var proj_maxx = 180;
 var delta = 4.948871220193411; //TODO remove hardcoded delta due to "y + 1" -> the NW corner of the tile under this one...
 
 function sinh(x){
-        return  (Math.exp(x) - Math.exp(-x)) / 2;
+    return (Math.exp(x) - Math.exp(-x)) / 2;
 }
 
 function tile_to_SW_latlon_deg(z, x, y) {
@@ -15,7 +11,7 @@ function tile_to_SW_latlon_deg(z, x, y) {
     return[lon, lat];
 }
 
-function convert_geometry_to_latlong(z, x, y, tile_geometry, extent) {
+function convert_geometry_to_latlon(z, x, y, tile_geometry, extent) {
     var leaflet_geometry = [];
     for (var i=0; i<tile_geometry.length; i++) {
         tile_SW_coord = tile_to_SW_latlon_deg(z, x, y);
@@ -29,4 +25,4 @@ function convert_geometry_to_latlong(z, x, y, tile_geometry, extent) {
     return leaflet_geometry;
 }
 
-module.exports.convert_geometry_to_latlong = convert_geometry_to_latlong;
+module.exports.convert_geometry_to_latlon = convert_geometry_to_latlon;

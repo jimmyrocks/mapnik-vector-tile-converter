@@ -9,11 +9,11 @@ Director.prototype.setMapnikEncodedGeometry = function setMapnikEncodedGeometry(
 };
 
 Director.prototype.callBuilderFunctions = function callBuilderFunctions(mapnikvtGeometry) {
-    geometry = this.mapnikEncodedGeometry;
+    var geometry = this.mapnikEncodedGeometry;
     var i = 0;
     while (i<geometry.length) {
-        var command = get_command(geometry[i]);
-        var frequence = get_frequence(geometry[i]);
+        var command = getCommand(geometry[i]);
+        var frequence = getFrequence(geometry[i]);
         var next_i;
         switch (command) {
             case 1: // MoveTo
@@ -43,14 +43,12 @@ Director.prototype.callBuilderFunctions = function callBuilderFunctions(mapnikvt
     }
 }
 
-get_command = function (instruction) {
-    var command = instruction & 7;
-    return command;
+var getCommand = function (instruction) {
+    return instruction & 7;
 };
 
-get_frequence = function (instruction) {
-    var frequence = instruction >>> 3;
-    return frequence;
+var getFrequence = function (instruction) {
+    return instruction >>> 3;
 }
 
 Director.prototype.createDecodedTile = function createDecodedTile(geometry) {
