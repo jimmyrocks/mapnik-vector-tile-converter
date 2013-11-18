@@ -2,29 +2,28 @@ function sinh(x){
     return (Math.exp(x) - Math.exp(-x)) / 2;
 }
 
-function to_lon(n, xtile, x) {
+function toLon(n, xtile, x) {
     lon = 360 * (xtile + x) / n - 180;
     return lon;
 }
 
-function to_lat(n, ytile, y) {
-    lat_rad = Math.atan(sinh(Math.PI * (1 - 2 * (ytile + y) / n)));
-    lat = lat_rad * 180 / Math.PI;
+function toLat(n, ytile, y) {
+    lat = 180/Math.PI * Math.atan(sinh(Math.PI * (1 - 2 * (ytile + y) / n)));
     return lat;
 }
 
-function convert_geometry_to_latlon(z, x, y, tile_geometry, extent) {
-    var leaflet_geometry = [];
-    for (var i=0; i<tile_geometry.length; i++) {
+function convertGeometryToLatLon(z, x, y, tileGeometry, extent) {
+    var latlonGeometry = [];
+    for (var i=0; i<tileGeometry.length; i++) {
         n = 1 << z; // 2^z
-        lon = to_lon(n, x, tile_geometry[i][0]/extent);
-        lat = to_lat(n, y, tile_geometry[i][1]/extent);
-        leaflet_geometry.push([lon, lat]);
+        lon = toLon(n, x, tileGeometry[i][0]/extent);
+        lat = toLat(n, y, tileGeometry[i][1]/extent);
+        latlonGeometry.push([lon, lat]);
     }
-    if (leaflet_geometry.length == 1) {
-        leaflet_geometry = leaflet_geometry[0];
+    if (latlonGeometry.length == 1) {
+        latlonGeometry = latlonGeometry[0];
     }
-    return leaflet_geometry;
+    return latlonGeometry;
 }
 
-module.exports.convert_geometry_to_latlon = convert_geometry_to_latlon;
+module.exports.convertGeometryToLatLon = convertGeometryToLatLon;
