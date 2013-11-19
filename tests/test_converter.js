@@ -2,11 +2,11 @@ var assert = require('assert');
 var sinon = require('sinon');
 var director = require('../src/director.js');
 var builder = require('../src/builder.js');
-var tolatlon = require('../src/to_latlon.js');
+var converter = require('../src/converter.js');
 
-describe("Leaflet-vector-tile\n", function() {
+describe("Projection converter\n", function() {
     before(function() {
-        encoded = new director.Director();
+        decoder = new director.Decoder();
         maxLat = 85.05;
     });
 
@@ -14,8 +14,8 @@ describe("Leaflet-vector-tile\n", function() {
         z = 0, x = 0, y = 0;
         geometry = ([9, 0, 8192]); //point at the SW corner of the tile
         extent = 4096;
-        tileGeometry = encoded.createDecodedTile(geometry);
-        result = tolatlon.convertGeometryToLatLon(z, x, y, tileGeometry, extent);
+        tileGeometry = decoder.decode(geometry);
+        result = converter.tolatlon(z, x, y, tileGeometry, extent);
         result[1] = Math.round(result[1]*100)/100;
         assert.deepEqual(result, [-180, -maxLat]); //verify the y value
     })
@@ -24,8 +24,8 @@ describe("Leaflet-vector-tile\n", function() {
         z = 1, x = 0, y = 1;
         geometry = [9, 0, 8192];
         extent = 4096;
-        tileGeometry = encoded.createDecodedTile(geometry);
-        result = tolatlon.convertGeometryToLatLon(z, x, y, tileGeometry, extent);
+        tileGeometry = decoder.decode(geometry);
+        result = converter.tolatlon(z, x, y, tileGeometry, extent);
         result[1] = Math.round(result[1]*100)/100;
         assert.deepEqual(result, [-180, -maxLat]);
     })
@@ -34,8 +34,8 @@ describe("Leaflet-vector-tile\n", function() {
         z = 2, x = 0, y = 3;
         geometry = [9, 0, 8192];
         extent = 4096;
-        tileGeometry = encoded.createDecodedTile(geometry);
-        result = tolatlon.convertGeometryToLatLon(z, x, y, tileGeometry, extent);
+        tileGeometry = decoder.decode(geometry);
+        result = converter.tolatlon(z, x, y, tileGeometry, extent);
         result[1] = Math.round(result[1]*100)/100;
         assert.deepEqual(result, [-180, -maxLat]);
     })
@@ -44,8 +44,8 @@ describe("Leaflet-vector-tile\n", function() {
         z = 2, x = 3, y = 3;
         geometry = [9, 8192, 8192];
         extent = 4096;
-        tileGeometry = encoded.createDecodedTile(geometry);
-        result = tolatlon.convertGeometryToLatLon(z, x, y, tileGeometry, extent);
+        tileGeometry = decoder.decode(geometry);
+        result = converter.tolatlon(z, x, y, tileGeometry, extent);
         result[1] = Math.round(result[1]*100)/100;
         assert.deepEqual(result, [180, -maxLat]);
     })

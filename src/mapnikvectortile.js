@@ -7,8 +7,8 @@ var MapnikVector = proto.build("mapnik.vector");
 
 parse = function parse(file) {
     data = fs.readFileSync(file);
-    tile_content = MapnikVector.tile.decode(data).layers;
-    return tile_content;
+    tileContent = MapnikVector.tile.decode(data).layers;
+    return tileContent;
 }
 
 module.exports.parse = parse;

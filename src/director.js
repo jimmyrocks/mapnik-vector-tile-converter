@@ -1,20 +1,21 @@
 var builder = require('./builder.js');
 
-function Director() {
+function Decoder() {
     this.mapnikEncodedGeometry;
 };
 
-Director.prototype.setMapnikEncodedGeometry = function setMapnikEncodedGeometry(encoded) {
+Decoder.prototype.setMapnikEncodedGeometry = function setMapnikEncodedGeometry(encoded) {
     this.mapnikEncodedGeometry = encoded;
 };
 
-Director.prototype.callBuilderFunctions = function callBuilderFunctions(mapnikvtGeometry) {
+Decoder.prototype.callBuilderFunctions = function callBuilderFunctions(mapnikvtGeometry) {
     var geometry = this.mapnikEncodedGeometry;
     var i = 0;
     while (i<geometry.length) {
-        var command = getCommand(geometry[i]);
-        var frequence = getFrequence(geometry[i]);
-        var next_i;
+        var instruction = geometry[i];
+        var command = instruction & 7;
+        var frequence = instruction >>> 3;
+        var next_i, coordinates;
         switch (command) {
             case 1: // MoveTo
                 //TODO: call_f(i, next_i, geometry, frequence, builder.MoveTo);
@@ -43,19 +44,11 @@ Director.prototype.callBuilderFunctions = function callBuilderFunctions(mapnikvt
     }
 }
 
-var getCommand = function (instruction) {
-    return instruction & 7;
-};
-
-var getFrequence = function (instruction) {
-    return instruction >>> 3;
-}
-
-Director.prototype.createDecodedTile = function createDecodedTile(geometry) {
+Decoder.prototype.decode = function decode(geometry) {
     this.mapnikEncodedGeometry = geometry;
     var relativeTileGeometryBuilder = new builder.Builder();
     this.callBuilderFunctions(relativeTileGeometryBuilder);
     return relativeTileGeometryBuilder.getTileRelativeGeometry();
 }
 
-module.exports.Director = Director;
+module.exports.Decoder = Decoder;

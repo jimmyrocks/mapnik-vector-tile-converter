@@ -12,7 +12,7 @@ function toLat(n, ytile, y) {
     return lat;
 }
 
-function convertGeometryToLatLon(z, x, y, tileGeometry, extent) {
+function tolatlon(z, x, y, tileGeometry, extent) {
     var latlonGeometry = [];
     for (var i=0; i<tileGeometry.length; i++) {
         n = 1 << z; // 2^z
@@ -26,4 +26,4 @@ function convertGeometryToLatLon(z, x, y, tileGeometry, extent) {
     return latlonGeometry;
 }
 
-module.exports.convertGeometryToLatLon = convertGeometryToLatLon;
+module.exports.tolatlon = tolatlon;

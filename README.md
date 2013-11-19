@@ -1,21 +1,28 @@
 # mapnik-vector-tile-converter
 
-This should convert Mapnik Vector Tile geometries to latlon.
+This converts Mapnik Vector Tile geometries to a list of latlon coordinates.
 
 ## Dependancies
 
 This code is written in NodeJS. To use it, you need to install:
-
 Protobuf.js: <https://github.com/dcodeIO/ProtoBuf.js/>
+
 
 ## Usage
 
 Look at the code example!
 
-## Code
+## Development
+
+### Run tests
+
+    mocha tests
 
 ### Director
-calls the appropriate functions (moveTo, lineTo and/or closePath as described in the Mapnik's vector_tile.proto) for a Mapnik Vector Tile geometry.
+Calls the appropriate functions (moveTo, lineTo and/or closePath as described in the Mapnik's vector\_tile.proto) for a Mapnik Vector Tile geometry.
 
 ### Builder
-returns the geometry of the tile (= relative coordinates) from MoveTo, LineTo and ClosePath commands
+Returns the geometry of the tile (= relative coordinates) from MoveTo, LineTo and ClosePath commands.
+
+### Converter
+Changes the geometry relative to the tile into a latlon geometry.

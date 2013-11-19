@@ -24,8 +24,8 @@ describe("Builder\n", function() {
     });
 
     it("        should works when called from the director", function () {
-        encoded = new director.Director();
-        relative_geometry = encoded.createDecodedTile([9, 30, 0]);
+        decoder = new director.Decoder();
+        relative_geometry = decoder.decode([9, 30, 0]);
         assert.deepEqual(relative_geometry, [[15, 0]]);
     });
 })
