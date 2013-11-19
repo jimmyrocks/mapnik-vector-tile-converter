@@ -11,42 +11,60 @@ describe("Projection converter\n", function() {
     });
 
     it("        should convert coordinates for z=0, x=0, y=0, extent=4096 to a Leaflet geometry", function() {
-        z = 0, x = 0, y = 0;
-        geometry = ([9, 0, 8192]); //point at the SW corner of the tile
-        extent = 4096;
-        tileGeometry = decoder.decode(geometry);
-        result = converter.tolatlon(z, x, y, tileGeometry, extent);
+        var z = 0, x = 0, y = 0;
+        var geometry = ([9, 0, 8192]); //point at the SW corner of the tile
+        var extent = 4096;
+        var tileGeometry = decoder.decode(geometry);
+        var result = converter.Converter.tolatlon(z, x, y, tileGeometry, extent);
         result[1] = Math.round(result[1]*100)/100;
         assert.deepEqual(result, [-180, -maxLat]); //verify the y value
     })
 
     it("        should convert coordinates for z=1, x=0, y=1, extent=4096 to a Leaflet geometry", function() {
-        z = 1, x = 0, y = 1;
-        geometry = [9, 0, 8192];
-        extent = 4096;
-        tileGeometry = decoder.decode(geometry);
-        result = converter.tolatlon(z, x, y, tileGeometry, extent);
+        var z = 1, x = 0, y = 1;
+        var geometry = [9, 0, 8192];
+        var extent = 4096;
+        var tileGeometry = decoder.decode(geometry);
+        var result = converter.Converter.tolatlon(z, x, y, tileGeometry, extent);
         result[1] = Math.round(result[1]*100)/100;
         assert.deepEqual(result, [-180, -maxLat]);
     })
 
     it("        should convert coordinates for z=2, x=0, y=3, extent=4096 to a Leaflet geometry", function() {
-        z = 2, x = 0, y = 3;
-        geometry = [9, 0, 8192];
-        extent = 4096;
-        tileGeometry = decoder.decode(geometry);
-        result = converter.tolatlon(z, x, y, tileGeometry, extent);
+        var z = 2, x = 0, y = 3;
+        var geometry = [9, 0, 8192];
+        var extent = 4096;
+        var tileGeometry = decoder.decode(geometry);
+        var result = converter.Converter.tolatlon(z, x, y, tileGeometry, extent);
         result[1] = Math.round(result[1]*100)/100;
         assert.deepEqual(result, [-180, -maxLat]);
     })
 
     it("        should convert coordinates for z=2, x=3, y=3, extent=4096 to a Leaflet geometry", function() {
-        z = 2, x = 3, y = 3;
-        geometry = [9, 8192, 8192];
-        extent = 4096;
-        tileGeometry = decoder.decode(geometry);
-        result = converter.tolatlon(z, x, y, tileGeometry, extent);
+        var z = 2, x = 3, y = 3;
+        var geometry = [9, 8192, 8192];
+        var extent = 4096;
+        var tileGeometry = decoder.decode(geometry);
+        var result = converter.Converter.tolatlon(z, x, y, tileGeometry, extent);
         result[1] = Math.round(result[1]*100)/100;
         assert.deepEqual(result, [180, -maxLat]);
+    })
+
+    it("        should return spherical Mercator coordinates for z=0, x=0, y=0, extent=4096", function() {
+        var z = 0, x = 0, y = 0, extent = 4096;
+        var geometry = ([9, 0, 8192]);
+        var tileGeometry = decoder.decode(geometry);
+        var result = converter.Converter.tomercator(z, x, y, tileGeometry, extent);
+        result = [Math.round(result[0]*100)/100, Math.round(result[1]*100)/100];
+        assert.deepEqual(result, [-20037508.34, -20037508.34]);
+    })
+
+    it("        should return spherical Mercator coordinates for z=2, x=1, y=1, extent=4096", function() {
+        var z = 2, x = 1, y = 1, extent = 4096;
+        var geometry = ([9, 8192, 8192]);
+        var tileGeometry = decoder.decode(geometry);
+        var result = converter.Converter.tomercator(z, x, y, tileGeometry, extent);
+        result = [Math.round(result[0]*100)/100, Math.round(result[1]*100)/100];
+        assert.deepEqual(result, [0, 0]);
     })
 });

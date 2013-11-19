@@ -1,6 +1,6 @@
 # mapnik-vector-tile-converter
 
-This converts Mapnik Vector Tile geometries to a list of latlon coordinates.
+This converts Mapnik Vector Tile geometries to a list of latlon or spherical Mercator coordinates.
 
 ## Dependancies
 
@@ -25,4 +25,4 @@ Calls the appropriate functions (moveTo, lineTo and/or closePath as described in
 Returns the geometry of the tile (= relative coordinates) from MoveTo, LineTo and ClosePath commands.
 
 ### Converter
-Changes the geometry relative to the tile into a latlon geometry.
+Changes the geometry relative to the tile into a latitude longitude or Mercator-projected x y list.

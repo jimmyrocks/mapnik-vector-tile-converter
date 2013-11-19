@@ -18,7 +18,7 @@ content.forEach(function(layer) {
     console.log("Decoded coordinates: ");
     features.forEach(function(feature) {
         var relative = decoder.decode(feature.geometry);
-        console.log(converter.tolatlon(z, x, y, relative, extent));
+        console.log(converter.Converter.tomercator(z, x, y, relative, extent));
     });
     console.log("");
 });

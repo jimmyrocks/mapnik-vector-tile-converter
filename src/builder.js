@@ -7,26 +7,26 @@ function Builder() {
 }
 
 Builder.prototype.moveTo = function moveTo(x, y) {
-    x = decode_sint32(x);
-    y = decode_sint32(y);
-    geom_size = this.tileRelativeGeometry.length;
-    if (!geom_size) {
+    x = util.decodeSint32(x);
+    y = util.decodeSint32(y);
+    geomSize = this.tileRelativeGeometry.length;
+    if (!geomSize) {
         previous = [0, 0];
     } else {
-        previous = this.tileRelativeGeometry[geom_size - 1];
+        previous = this.tileRelativeGeometry[geomSize - 1];
     }
     this.tileRelativeGeometry.push([previous[0] + x, previous[1] + y]);
 };
 
 Builder.prototype.lineTo = function lineTo(x, y) {
-    x = decode_sint32(x);
-    y = decode_sint32(y);
-    geom_size = this.tileRelativeGeometry.length;
-    if (!geom_size) {
+    x = util.decodeSint32(x);
+    y = util.decodeSint32(y);
+    geomSize = this.tileRelativeGeometry.length;
+    if (!geomSize) {
         this.tileRelativeGeometry.push([0, 0]);
-        geom_size ++;
+        geomSize ++;
     }
-    previous = this.tileRelativeGeometry[geom_size - 1];
+    previous = this.tileRelativeGeometry[geomSize - 1];
     this.tileRelativeGeometry.push([previous[0] + x, previous[1] + y]);
 };
 

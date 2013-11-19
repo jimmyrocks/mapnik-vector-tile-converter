@@ -1,29 +1,39 @@
-function sinh(x){
-    return (Math.exp(x) - Math.exp(-x)) / 2;
+util = require('./util');
+
+var Converter = {
+    tolatlon: function (z, x, y, tileGeometry, extent) {
+        return convert(z, x, y, tileGeometry, extent, ctolatlon);
+    },
+    tomercator: function (z, x, y, tileGeometry, extent) {
+        return convert(z, x, y, tileGeometry, extent, ctomercator);
+    }
 }
 
-function toLon(n, xtile, x) {
-    lon = 360 * (xtile + x) / n - 180;
-    return lon;
-}
-
-function toLat(n, ytile, y) {
-    lat = 180/Math.PI * Math.atan(sinh(Math.PI * (1 - 2 * (ytile + y) / n)));
-    return lat;
-}
-
-function tolatlon(z, x, y, tileGeometry, extent) {
-    var latlonGeometry = [];
+function convert(z, x, y, tileGeometry, extent, project) {
+    var convertedGeometry = [];
     for (var i=0; i<tileGeometry.length; i++) {
-        n = 1 << z; // 2^z
-        lon = toLon(n, x, tileGeometry[i][0]/extent);
-        lat = toLat(n, y, tileGeometry[i][1]/extent);
-        latlonGeometry.push([lon, lat]);
+        var n = 1 << z; // 2^z
+        var xglobal = x + tileGeometry[i][0]/extent;
+        var yglobal = y + tileGeometry[i][1]/extent;
+        convertedGeometry.push(project(n, xglobal, yglobal));
     }
-    if (latlonGeometry.length == 1) {
-        latlonGeometry = latlonGeometry[0];
+    if (convertedGeometry.length == 1) {
+        convertedGeometry = convertedGeometry[0];
     }
-    return latlonGeometry;
+    return convertedGeometry;
 }
 
-module.exports.tolatlon = tolatlon;
+var ctolatlon = function ctolatlon(n, x, y) {
+    var lon = 360 * x / n - 180;
+    var lat = 180/Math.PI * Math.atan(util.sinh(Math.PI * (1 - 2 * y / n)));
+    return [lon, lat];
+}
+
+var ctomercator = function ctomercator(n, x, y) {
+    var resolution = util.EARTH_CIRCUMFERENCE / n;
+    var mx = -0.5 * util.EARTH_CIRCUMFERENCE + x * resolution;
+    var my = 0.5 * util.EARTH_CIRCUMFERENCE - y * resolution;
+    return [mx, my];
+}
+
+module.exports.Converter = Converter;
