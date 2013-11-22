@@ -7,7 +7,6 @@ var converter = require('../src/converter.js');
 describe("Projection converter\n", function() {
     before(function() {
         decoder = new director.Decoder();
-        maxLat = 85.05;
     });
 
     it("        should convert coordinates for z=0, x=0, y=0, extent=4096 to a Leaflet geometry", function() {
@@ -16,8 +15,8 @@ describe("Projection converter\n", function() {
         var extent = 4096;
         var tileGeometry = decoder.decode(geometry);
         var result = converter.Converter.tolatlon(z, x, y, tileGeometry, extent);
-        result[1] = Math.round(result[1]*100)/100;
-        assert.deepEqual(result, [-180, -maxLat]); //verify the y value
+        result[0] = Math.round(result[0]*100)/100;
+        assert.deepEqual(result, [-85.05, -180]); //verify the y value
     })
 
     it("        should convert coordinates for z=1, x=0, y=1, extent=4096 to a Leaflet geometry", function() {
@@ -26,8 +25,8 @@ describe("Projection converter\n", function() {
         var extent = 4096;
         var tileGeometry = decoder.decode(geometry);
         var result = converter.Converter.tolatlon(z, x, y, tileGeometry, extent);
-        result[1] = Math.round(result[1]*100)/100;
-        assert.deepEqual(result, [-180, -maxLat]);
+        result[0] = Math.round(result[0]*100)/100;
+        assert.deepEqual(result, [-85.05, -180]);
     })
 
     it("        should convert coordinates for z=2, x=0, y=3, extent=4096 to a Leaflet geometry", function() {
@@ -36,8 +35,8 @@ describe("Projection converter\n", function() {
         var extent = 4096;
         var tileGeometry = decoder.decode(geometry);
         var result = converter.Converter.tolatlon(z, x, y, tileGeometry, extent);
-        result[1] = Math.round(result[1]*100)/100;
-        assert.deepEqual(result, [-180, -maxLat]);
+        result[0] = Math.round(result[0]*100)/100;
+        assert.deepEqual(result, [-85.05, -180]);
     })
 
     it("        should convert coordinates for z=2, x=3, y=3, extent=4096 to a Leaflet geometry", function() {
@@ -46,8 +45,8 @@ describe("Projection converter\n", function() {
         var extent = 4096;
         var tileGeometry = decoder.decode(geometry);
         var result = converter.Converter.tolatlon(z, x, y, tileGeometry, extent);
-        result[1] = Math.round(result[1]*100)/100;
-        assert.deepEqual(result, [180, -maxLat]);
+        result[0] = Math.round(result[0]*100)/100;
+        assert.deepEqual(result, [-85.05, 180]);
     })
 
     it("        should return spherical Mercator coordinates for z=0, x=0, y=0, extent=4096", function() {

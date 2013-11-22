@@ -26,7 +26,7 @@ function convert(z, x, y, tileGeometry, extent, project) {
 var ctolatlon = function ctolatlon(n, x, y) {
     var lon = 360 * x / n - 180;
     var lat = 180/Math.PI * Math.atan(util.sinh(Math.PI * (1 - 2 * y / n)));
-    return [lon, lat];
+    return [lat, lon];
 }
 
 var ctomercator = function ctomercator(n, x, y) {
