@@ -1,15 +1,12 @@
 var builder = require('./builder.js');
+var util = require('./util.js');
 
 function Decoder() {
-    this.mapnikEncodedGeometry;
+    this.encodedGeometry;
 };
 
-Decoder.prototype.setMapnikEncodedGeometry = function setMapnikEncodedGeometry(encoded) {
-    this.mapnikEncodedGeometry = encoded;
-};
-
-Decoder.prototype.callBuilderFunctions = function callBuilderFunctions(mapnikvtGeometry) {
-    var geometry = this.mapnikEncodedGeometry;
+Decoder.prototype.callBuilderFunctions = function callBuilderFunctions(mapnikGeometry) {
+    var geometry = this.encodedGeometry;
     var i = 0;
     while (i<geometry.length) {
         var instruction = geometry[i];
@@ -18,11 +15,12 @@ Decoder.prototype.callBuilderFunctions = function callBuilderFunctions(mapnikvtG
         var next_i, coordinates;
         switch (command) {
             case 1: // MoveTo
-                //TODO: call_f(i, next_i, geometry, frequence, builder.MoveTo);
                 next_i = i + 2 * frequence + 1;
                 coordinates = geometry.slice(i+1, next_i);
                 for (j = 0; j<coordinates.length ; j+=2) {
-                    mapnikvtGeometry.moveTo(coordinates[j], coordinates[j+1]);
+                    var x = util.decodeSint32(coordinates[j]);
+                    var y = util.decodeSint32(coordinates[j+1]);
+                    mapnikGeometry.moveTo(x, y);
                 }
                 i = next_i;
                 break;
@@ -30,12 +28,14 @@ Decoder.prototype.callBuilderFunctions = function callBuilderFunctions(mapnikvtG
                 next_i = i + 2 * frequence + 1;
                 coordinates = geometry.slice(i+1, next_i);
                 for (j = 0; j<coordinates.length ; j+=2) {
-                    mapnikvtGeometry.lineTo(coordinates[j], coordinates[j+1]);
+                    var x = util.decodeSint32(coordinates[j]);
+                    var y = util.decodeSint32(coordinates[j+1]);
+                    mapnikGeometry.lineTo(x, y);
                 }
                 i = next_i;
                 break;
             case 7: //ClosePath
-                mapnikvtGeometry.closePath();
+                mapnikGeometry.closePath();
                 i++;
                 break;
             default:
@@ -45,7 +45,7 @@ Decoder.prototype.callBuilderFunctions = function callBuilderFunctions(mapnikvtG
 }
 
 Decoder.prototype.decode = function decode(geometry) {
-    this.mapnikEncodedGeometry = geometry;
+    this.encodedGeometry = geometry;
     var relativeTileGeometryBuilder = new builder.Builder();
     this.callBuilderFunctions(relativeTileGeometryBuilder);
     return relativeTileGeometryBuilder.getTileRelativeGeometry();

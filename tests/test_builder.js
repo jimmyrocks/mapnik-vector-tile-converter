@@ -7,20 +7,20 @@ describe("Builder\n", function() {
         myGeometry = new builder.Builder();
     });
 
-    it("        MoveTo(40, 32) should give [20, 16]", function () {
+    it("        MoveTo(40, 32)", function () {
         myGeometry.moveTo(40, 32);
-        assert.deepEqual(myGeometry.getTileRelativeGeometry(), [[20, 16]])
+        assert.deepEqual(myGeometry.getTileRelativeGeometry(), [[40, 32]])
     });
 
-    it("        LineTo(2, 4) should give [0, 0, 1, 2]", function () {
+    it("        LineTo(2, 4)", function () {
         myGeometry.lineTo(2, 4);
-        assert.deepEqual(myGeometry.getTileRelativeGeometry(), [[0, 0], [1, 2]]);
+        assert.deepEqual(myGeometry.getTileRelativeGeometry(), [[0, 0], [2, 4]]);
     });
 
-    it("        MoveTo(6, 2), LineTo(1, 4) should give [6, 2, 1, 4]", function () {
+    it("        MoveTo(6, 2), LineTo(1, 4)", function () {
         myGeometry.moveTo(6, 2);
         myGeometry.lineTo(1, 4);
-        assert.deepEqual(myGeometry.getTileRelativeGeometry(), [[3, 1], [2, 3]]);
+        assert.deepEqual(myGeometry.getTileRelativeGeometry(), [[6, 2], [7, 6]]);
     });
 
     it("        should works when called from the director", function () {

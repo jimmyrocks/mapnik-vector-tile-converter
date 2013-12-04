@@ -25,28 +25,28 @@ describe("Decoder\n", function() {
     it("        should call moveTo with parameters 12, 26 when [9, 12, 26]", function () {
         instruction = [9, 12, 26];
         decoder.decode(instruction);
-        sinon.assert.calledWithExactly(move, 12, 26);
+        sinon.assert.calledWithExactly(move, 6, 13);
     });
 
     it("        should call LineTo with parameters 28, 94 when [10, 28, 94]", function() {
         instruction = [10, 28, 94];
         decoder.decode(instruction);
-        sinon.assert.calledWithExactly(line, 28, 94);
+        sinon.assert.calledWithExactly(line, 14, 47);
     });
 
     it("        should call LineTo twice with parameters 42, 54 and 79, 63 when [18, 42, 54 79, 63]", function() {
         instruction = [18, 42, 54, 79, 63];
         decoder.decode(instruction);
         sinon.assert.calledTwice(line);
-        sinon.assert.calledWithExactly(line, 42, 54);
-        sinon.assert.calledWithExactly(line, 79, 63);
+        sinon.assert.calledWithExactly(line, 21, 27);
+        sinon.assert.calledWithExactly(line, -40, -32);
     });
     it("        should call MoveTo twice with parameters 42, 54 and 79, 63 when [18, 42, 54 79, 63]", function() {
         instruction = [17, 42, 54, 79, 63];
         decoder.decode(instruction);
         sinon.assert.calledTwice(move);
-        sinon.assert.calledWithExactly(move, 42, 54);
-        sinon.assert.calledWithExactly(move, 79, 63);
+        sinon.assert.calledWithExactly(move, 21, 27);
+        sinon.assert.calledWithExactly(move, -40, -32);
     });
     it("        should call MoveTo then LineTo when [9, 85, 69, 10, 90, 30]", function() {
         instruction = [9, 85, 69, 10, 90, 30];
