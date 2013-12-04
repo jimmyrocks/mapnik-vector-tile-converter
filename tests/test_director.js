@@ -4,7 +4,7 @@ var builder = require('../src/builder.js');
 var sinon = require('sinon');
 
 
-describe("Decoder\n", function() {
+describe("Director\n", function() {
     before(function() {
         decoder = new director.Decoder();
     });
@@ -35,18 +35,19 @@ describe("Decoder\n", function() {
     });
 
     it("        should call LineTo twice with parameters 42, 54 and 79, 63 when [18, 42, 54 79, 63]", function() {
-        instruction = [18, 42, 54, 79, 63];
+        instruction = [18, 42, 54, 19, 17];
         decoder.decode(instruction);
         sinon.assert.calledTwice(line);
+        sinon.assert.calledWithExactly(move, 0, 0); //first command: lineTo -> go from (0, 0)
         sinon.assert.calledWithExactly(line, 21, 27);
-        sinon.assert.calledWithExactly(line, -40, -32);
+        sinon.assert.calledWithExactly(line, 11, 18);
     });
     it("        should call MoveTo twice with parameters 42, 54 and 79, 63 when [18, 42, 54 79, 63]", function() {
-        instruction = [17, 42, 54, 79, 63];
+        instruction = [17, 42, 54, 19, 17];
         decoder.decode(instruction);
         sinon.assert.calledTwice(move);
         sinon.assert.calledWithExactly(move, 21, 27);
-        sinon.assert.calledWithExactly(move, -40, -32);
+        sinon.assert.calledWithExactly(move, 11, 18);
     });
     it("        should call MoveTo then LineTo when [9, 85, 69, 10, 90, 30]", function() {
         instruction = [9, 85, 69, 10, 90, 30];
