@@ -5,7 +5,7 @@ function Decoder() {
     this.encodedGeometry;
 };
 
-Decoder.prototype.callBuilderFunctions = function callBuilderFunctions(mapnikGeometry) {
+Decoder.prototype.callFunctions = function callFunctions(mapnikGeometry) {
     var geometry = this.encodedGeometry;
     var i = 0;
     while (i<geometry.length) {
@@ -46,9 +46,9 @@ Decoder.prototype.callBuilderFunctions = function callBuilderFunctions(mapnikGeo
 
 Decoder.prototype.decode = function decode(geometry) {
     this.encodedGeometry = geometry;
-    var relativeTileGeometryBuilder = new builder.Builder();
-    this.callBuilderFunctions(relativeTileGeometryBuilder);
-    return relativeTileGeometryBuilder.getTileRelativeGeometry();
+    var geometryBuilder = new builder.Builder();
+    this.callFunctions(geometryBuilder);
+    return geometryBuilder.getRelativeGeometry();
 }
 
 module.exports.Decoder = Decoder;

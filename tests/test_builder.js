@@ -9,18 +9,18 @@ describe("Builder\n", function() {
 
     it("        MoveTo(40, 32)", function () {
         myGeometry.moveTo(40, 32);
-        assert.deepEqual(myGeometry.getTileRelativeGeometry(), [[40, 32]])
+        assert.deepEqual(myGeometry.getRelativeGeometry(), [[40, 32]])
     });
 
     it("        LineTo(2, 4)", function () {
         myGeometry.lineTo(2, 4);
-        assert.deepEqual(myGeometry.getTileRelativeGeometry(), [[0, 0], [2, 4]]);
+        assert.deepEqual(myGeometry.getRelativeGeometry(), [[0, 0], [2, 4]]);
     });
 
     it("        MoveTo(6, 2), LineTo(1, 4)", function () {
         myGeometry.moveTo(6, 2);
         myGeometry.lineTo(1, 4);
-        assert.deepEqual(myGeometry.getTileRelativeGeometry(), [[6, 2], [7, 6]]);
+        assert.deepEqual(myGeometry.getRelativeGeometry(), [[6, 2], [7, 6]]);
     });
 
     it("        should works when called from the director", function () {
