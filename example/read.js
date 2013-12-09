@@ -1,4 +1,4 @@
-var mvt = require('../src/mapnikvectortile.js');
+var mvt = require('../src/nodePBFreader.js');
 var director = require('../src/director.js');
 var converter = require('../src/converter.js');
 
