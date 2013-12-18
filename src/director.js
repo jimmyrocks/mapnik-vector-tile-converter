@@ -21,7 +21,7 @@ Decoder.prototype.callBuilderFunctions = function callBuilderFunctions(mapnikGeo
                     var x = util.decodeSint32(coordinates[j]);
                     var y = util.decodeSint32(coordinates[j+1]);
                     mapnikGeometry.moveTo(previous[0] + x, previous[1] + y);
-                    previous = [x, y];
+                    previous = [previous[0] + x, previous[1] + y];
                 }
                 i = next_i;
                 break;
@@ -35,7 +35,7 @@ Decoder.prototype.callBuilderFunctions = function callBuilderFunctions(mapnikGeo
                     var x = util.decodeSint32(coordinates[j]);
                     var y = util.decodeSint32(coordinates[j+1]);
                     mapnikGeometry.lineTo(previous[0] + x, previous[1] + y);
-                    previous = [x, y];
+                    previous = [previous[0] + x, previous[1] + y];
                 }
                 i = next_i;
                 break;
