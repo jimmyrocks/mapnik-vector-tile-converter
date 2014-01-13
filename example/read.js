@@ -1,24 +1,38 @@
-var mvt = require('../src/nodePBFreader.js');
-var director = require('../src/director.js');
-var converter = require('../src/converter.js');
+var mvt = require('../src/nodePBFreader.js'),
+director = require('../src/director.js'),
+converter = require('../src/converter.js'),
+tile = require('../src/tile.js'),
+z = 14,
+x = 4748,
+y = 6227,
+decoder = new director.Decoder(),
+loadTile = function(data) {
+  var convertedTile = tile.convertTile(data, {'z': z, 'x': x, 'y': y}, ['building']);
+  console.log(JSON.stringify(convertedTile,null,2));
+},
+parsePbf = function(data) {
+  data.forEach(function(layer) {
+    // Loop through the layers
+    var features = layer.features,
+    //geometries = [],
+    extent = layer.extent;
 
-var content = mvt.parse('14_8716_8015.vector.pbf'); //this is a very big file
-var z = 14;
-var x = 8716;
-var y = 8015;
-
-var decoder = new director.Decoder();
-
-content.forEach(function(layer) {
-    console.log("layer " + layer.name + ":");
-    var features = layer.features;
-    var geometries = [];
-    var extent = layer.extent;
-
-    console.log("Decoded coordinates: ");
+    // Loop through the individual features
     features.forEach(function(feature) {
-        var relative = decoder.decode(feature.geometry);
-        console.log(converter.Converter.tomercator(z, x, y, relative, extent));
+      // Extract the geometries
+      var relative = decoder.decode(feature.geometry);
+      console.log(converter.Converter.tolatlon(z, x, y, relative, extent));
     });
-    console.log("");
+  });
+};
+
+var fs = require('fs'),
+fileName = './tiles/14_4748_6227.vector.pbf';
+fs.readFile(fileName, function(err, contents) {
+  var actionFunc = [parsePbf, loadTile];
+  if (!err) {
+    mvt.parse(contents, actionFunc[1]);
+  } else {
+    console.log('err', err);
+  }
 });
