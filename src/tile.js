@@ -1,4 +1,5 @@
 var director = require('./director.js'),
+geojsonize = require('./togeojson.js');
 converter = require('./converter.js'),
 convertTile = function (tile, tilePoint, filter) {
   var decoder = new director.Decoder(),
@@ -23,6 +24,7 @@ convertTile = function (tile, tilePoint, filter) {
           }
           output.tags.push({key: layer.keys[feature.tags[i-1]], value: tag});
         }
+        output = geojsonize(output, feature.type, feature.id.low);
         if (parsedTile[layer.name]) {
           parsedTile[layer.name].push(output);
         } else {
