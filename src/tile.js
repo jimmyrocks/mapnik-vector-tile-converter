@@ -24,15 +24,21 @@ convertTile = function (tile, tilePoint, filter) {
           }
           output.tags.push({key: layer.keys[feature.tags[i-1]], value: tag});
         }
-        output = geojsonize(output, feature.type, feature.id.low);
-        if (parsedTile[layer.name]) {
-          parsedTile[layer.name].push(output);
+        output = geojsonize(output, feature.type, feature.id.low, relative, tilePoint, layer.extent);
+        output.properties.layer = layer.name;
+
+//        if (parsedTile[layer.name]) {
+        if (parsedTile['features']) {
+          //parsedTile[layer.name].push(output);
+          parsedTile['features'].push(output);
         } else {
-          parsedTile[layer.name] = [output];
+          //parsedTile[layer.name] = [output];
+          parsedTile['features'] = [output];
         }
       });
     }
   });
+  parsedTile.type = "FeatureCollection";
   return parsedTile;
 };
 

@@ -7,7 +7,7 @@ x = 4748,
 y = 6227,
 decoder = new director.Decoder(),
 loadTile = function(data) {
-  var convertedTile = tile.convertTile(data, {'z': z, 'x': x, 'y': y}, ['road']);
+  var convertedTile = tile.convertTile(data, {'z': z, 'x': x, 'y': y});
   console.log(JSON.stringify(convertedTile,null,2));
 },
 parsePbf = function(data) {
