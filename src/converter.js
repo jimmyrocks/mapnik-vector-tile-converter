@@ -17,9 +17,6 @@ function convert(z, x, y, tileGeometry, extent, project) {
         var yglobal = y + tileGeometry[i][1]/extent;
         convertedGeometry.push(project(n, xglobal, yglobal));
     }
-    if (convertedGeometry.length == 1) {
-        convertedGeometry = convertedGeometry[0];
-    }
     return convertedGeometry;
 }
 
