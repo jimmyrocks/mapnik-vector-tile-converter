@@ -1,7 +1,7 @@
 var mvt = require('../src/nodePBFreader.js'),
 director = require('../src/director.js'),
 converter = require('../src/converter.js'),
-tile = require('../src/tile.js'),
+tile = require('../src/geojsonTile.js'),
 z = 14,
 x = 4748,
 y = 6227,
