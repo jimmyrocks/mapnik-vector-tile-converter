@@ -1,4 +1,5 @@
 var mvt = require('../src/nodePBFreader.js'),
+crypto = require('crypto'),
 director = require('../src/director.js'),
 converter = require('../src/converter.js'),
 tile = require('../src/geojsonTile.js'),
@@ -32,6 +33,9 @@ fs.readFile(fileName, function(err, contents) {
   var actionFunc = [parsePbf, loadTile];
   if (!err) {
     mvt.parse(contents, actionFunc[1]);
+    //var md5 = crypto.createHash('md5');
+    //md5.update(contents);
+    //console.log('ggg', md5.digest('hex'));
   } else {
     console.log('err', err);
   }

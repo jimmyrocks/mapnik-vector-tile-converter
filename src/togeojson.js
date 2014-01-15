@@ -6,7 +6,9 @@ toLonLat = function (geometries, tilePoint, extent, type) {
   closePolygon = function(idx) {
     // Don't think we need to do this
     //newGeometries[idx].pop();
-    newGeometries[idx].push(newGeometries[idx][0]);
+    if (newGeometries[idx][0]) {
+      newGeometries[idx].push(newGeometries[idx][0]);
+    }
   };
 
   for (var i= 0; i<geometries.length; i++) {
@@ -15,7 +17,9 @@ toLonLat = function (geometries, tilePoint, extent, type) {
       polygonIndex = newGeometries.push([]) - 1;
     } else {
       var newGeos = converter.Converter.tolatlon(tilePoint.z, tilePoint.x, tilePoint.y, [geometries[i]], extent)[0];
-      newGeometries[polygonIndex].push([newGeos[1], newGeos[0]]);
+      if (newGeos.length) {
+        newGeometries[polygonIndex].push([newGeos[1], newGeos[0]]);
+      }
     }
   }
   var returnTypes = {
@@ -27,7 +31,13 @@ toLonLat = function (geometries, tilePoint, extent, type) {
     },
     '3': function() {
       closePolygon(polygonIndex);
-      return newGeometries;
+      var cleanGeoms = [];
+      for (var j=0; j<newGeometries.length; j++) {
+        if (newGeometries[j].length) {
+          cleanGeoms.push(newGeometries[j]);
+        }
+      }
+      return cleanGeoms;
     }
   };
   return returnTypes[type]();
@@ -69,7 +79,7 @@ exports = module.exports = function(feature, tilePoint, layer) {
     newEntry.properties[tags[i].key] = tags[i].value;
   }
   // Add the layername to the tags
-  tags.layer = layer.name;
+  newEntry.properties.layerName = layer.name;
 
   // Geometry
   var relative = decoder.decode(feature.geometry);
@@ -97,6 +107,7 @@ exports = module.exports = function(feature, tilePoint, layer) {
 
   newEntry.geometry = types[feature.type];
   newEntry.geometry.coordinates = newEntry.geometry.coordinates();
+//  newEntry.properties.spec = relative;
 
   return newEntry;
 };
