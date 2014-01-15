@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<title>Vector Tiles</title>
+<meta charset="utf-8">
+<style>
+
+body {
+  margin: 0;
+}
+
+.map {
+  position: relative;
+  overflow: hidden;
+  background-color: rgb(241,238,232);
+}
+
+.layer {
+  position: absolute;
+}
+
+.tile {
+  position: absolute;
+  width: 256px;
+  height: 256px;
+}
+
+.tile path {
+  fill: none;
+  stroke: #000;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.tile .major_road { stroke: #776; }
+.tile .minor_road { stroke: #ccb; }
+.tile .highway { stroke: #f39; stroke-width: 1.5px; }
+.tile .rail { stroke: #7de; }
+.tile .water { fill: rgb(180,208,208); stroke-width: 0px; }
+.tile .building { fill: rgb(193,176,175); stroke: rgb(154,128,161);}
+.tile .road.street { stroke: rgb(254, 254, 254);stroke-width: 2px; stroke-dasharray: 2,2; stroke-linejoin: round;}
+.tile .road.street_limited { stroke: rgb(204, 204, 204);stroke-width: 1px; }
+.tile .road.main { stroke: rgb(249, 214, 166);stroke-width: 4px; }
+.tile .road.main.primary { stroke: rgb(221, 158, 157);stroke-width: 4px; }
+.tile .road.motorway { stroke: rgb(136, 163, 204);stroke-width: 4px; }
+.tile .road.motorway_link { stroke: rgb(136, 163, 204);stroke-width: 2px; }
+.tile .road.service { stroke: rgb(127, 127, 127);stroke-width: 0.5px; }
+.tile .road.service.track { stroke: rgb(154,103,0);stroke-width: 0.5px; stroke-dasharray: 5,5;}
+.tile .road.service.driveway { stroke: rgb(154,103,0);stroke-width: 0.5px; stroke-dasharray: 5,5;}
+.tile .road.driveway { stroke: rgb(127, 127, 127);stroke-width: 0.5px; }
+.tile .road.major_rail { stroke: rgb(100, 100, 100);stroke-width: 0.5px; stroke-dasharray: 10,10; }
+.tile .road.minor_rail { stroke: rgb(160, 160, 160);stroke-width: 0.5px; stroke-dasharray: 10,10; }
+.tile .road.path { stroke: rgb(252,132,117);stroke-width: 0.5px; stroke-dasharray: 5,5; }
+.tile .road.path.cycleway { stroke: rgb(4,0,255);stroke-width: 0.5px; stroke-dasharray: 5,5; }
+.tile .road.turning_circle { display: none; }
+.tile .road.mini_roundabout { display: none; }
+
+.tile .bridge.street { stroke: rgb(254, 254, 254);stroke-width: 2px; stroke-dasharray: 2,2; stroke-linejoin: round;}
+.tile .bridge.street_limited { stroke: rgb(204, 204, 204);stroke-width: 1px; }
+.tile .bridge.main { stroke: rgb(249, 214, 166);stroke-width: 4px; }
+.tile .bridge.main.primary { stroke: rgb(221, 158, 157);stroke-width: 4px; }
+.tile .bridge.motorway { stroke: rgb(136, 163, 204);stroke-width: 4px; }
+.tile .bridge.motorway_link { stroke: rgb(136, 163, 204);stroke-width: 2px; }
+.tile .bridge.service { stroke: rgb(127, 127, 127);stroke-width: 0.5px; }
+.tile .bridge.driveway { stroke: rgb(127, 127, 127);stroke-width: 0.5px; }
+.tile .bridge.major_rail { stroke: rgb(100, 100, 100);stroke-width: 0.5px; stroke-dasharray: 10,10; }
+.tile .bridge.minor_rail { stroke: rgb(160, 160, 160);stroke-width: 0.5px; stroke-dasharray: 10,10; }
+.tile .bridge.path { stroke: rgb(252,132,117);stroke-width: 0.5px; stroke-dasharray: 5,5; }
+.tile .bridge.path.cycleway { stroke: rgb(4,0,255);stroke-width: 0.5px; stroke-dasharray: 5,5; }
+.tile .bridge.turning_circle { display: none; }
+
+.tile .tunnel.street { stroke: rgb(254, 254, 254);stroke-width: 2px; stroke-dasharray: 2,2; stroke-linejoin: round;}
+.tile .tunnel.street_limited { stroke: rgb(204, 204, 204);stroke-width: 1px; }
+.tile .tunnel.main { stroke: rgb(249, 214, 166);stroke-width: 4px; }
+.tile .tunnel.main.primary { stroke: rgb(221, 158, 157);stroke-width: 4px; }
+.tile .tunnel.motorway { stroke: rgb(136, 163, 204);stroke-width: 4px; }
+.tile .tunnel.motorway_link { stroke: rgb(136, 163, 204);stroke-width: 2px; }
+.tile .tunnel.service { stroke: rgb(127, 127, 127);stroke-width: 0.5px; }
+.tile .tunnel.driveway { stroke: rgb(127, 127, 127);stroke-width: 0.5px; }
+.tile .tunnel.major_rail { stroke: rgb(100, 100, 100);stroke-width: 0.5px; stroke-dasharray: 10,10; }
+.tile .tunnel.minor_rail { stroke: rgb(160, 160, 160);stroke-width: 0.5px; stroke-dasharray: 10,10; }
+.tile .tunnel.path { stroke: rgb(252,132,117);stroke-width: 0.5px; stroke-dasharray: 5,5; }
+.tile .tunnel.path.cycleway { stroke: rgb(4,0,255);stroke-width: 0.5px; stroke-dasharray: 5,5; }
+.tile .tunnel.turning_circle { display: none; }
+
+.tile .landuse { fill: red; }
+.tile .landuse.park { fill: rgb(197,229,178); stroke-width: 0px; }
+.tile .landuse.parking { fill: rgb(246,239,179); stroke-width: 0px; }
+.tile .landuse.pitch { fill: rgb(135,212,174); stroke-width: 0px; }
+.tile .landuse.cemetery { fill: rgb(168,202,173); stroke-width: 0px; }
+.tile .landuse.cemetery { fill: rgb(168,202,173); stroke-width: 0px; }
+.tile .landuse.hospital { fill: rgb(240,240,215); stroke-width: 0px; }
+.tile .landuse.school { fill: rgb(240,240,230); stroke-width: 0px; }
+.tile .landuse.industrial { fill: rgb(232,230,225); stroke-width: 0px; }
+.tile .landuse.wood { fill: rgb(159,208,130); stroke-width: 0px; }
+.tile .landuse.sand { fill: rgb(254,241,183); stroke-width: 0px; }
+
+
+
+.info {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/d3.geo.tile.v0.min.js"></script>
+<script>
+
+var width = Math.max(960, window.innerWidth),
+    height = Math.max(500, window.innerHeight),
+    prefix = prefixMatch(["webkit", "ms", "Moz", "O"]);
+
+var tile = d3.geo.tile()
+    .size([width, height]);
+
+var projection = d3.geo.mercator()
+    .scale((1 << 21) / 2 / Math.PI)
+    .translate([-width / 2, -height / 2]); // just temporary
+
+var tileProjection = d3.geo.mercator();
+
+var tilePath = d3.geo.path()
+    .projection(tileProjection);
+
+var zoom = d3.behavior.zoom()
+    .scale(projection.scale() * 2 * Math.PI)
+    .scaleExtent([1 << 20, 1 << 23])
+    .translate(projection([-73.94, 40.67]).map(function(x) { return -x; }))
+    .on("zoom", zoomed);
+
+var map = d3.select("body").append("div")
+    .attr("class", "map")
+    .style("width", width + "px")
+    .style("height", height + "px")
+    .call(zoom)
+    .on("mousemove", mousemoved);
+
+var layer = map.append("div")
+    .attr("class", "layer");
+
+var info = map.append("div")
+    .attr("class", "info");
+
+zoomed();
+
+function zoomed() {
+  var tiles = tile
+      .scale(zoom.scale())
+      .translate(zoom.translate())
+      ();
+
+  projection
+      .scale(zoom.scale() / 2 / Math.PI)
+      .translate(zoom.translate());
+
+  var image = layer
+      .style(prefix + "transform", matrix3d(tiles.scale, tiles.translate))
+    .selectAll(".tile")
+      .data(tiles, function(d) { return d; });
+
+  image.exit()
+      .each(function(d) { this._xhr.abort(); })
+      .remove();
+
+  image.enter().append("svg")
+      .attr("class", "tile")
+      .style("left", function(d) { return d[0] * 256 + "px"; })
+      .style("top", function(d) { return d[1] * 256 + "px"; })
+      .each(function(d) {
+        var svg = d3.select(this);
+//        this._xhr = d3.json("http://" + ["a", "b", "c"][(d[0] * 31 + d[1]) % 3] + ".tile.openstreetmap.us/vectiles-highroad/" + d[2] + "/" + d[0] + "/" + d[1] + ".json", function(error, json) {
+        this._xhr = d3.json("http://10.147.146.119:8124/mvt/" + d[2] + "/" + d[0] + "/" + d[1] + ".json", function(error, json) {
+          var k = Math.pow(2, d[2]) * 256; // size of the world in pixels
+
+          tilePath.projection()
+              .translate([k / 2 - d[0] * 256, k / 2 - d[1] * 256]) // [0°,0°] in pixels
+              .scale(k / 2 / Math.PI);
+
+          svg.selectAll("path")
+            .data(json ? json.features.sort(function(a, b) { return a.properties.sort_key - b.properties.sort_key; }) : {})
+            .enter().append("path")
+              .attr("class", function(d) { return d.properties.class ? d.properties.layerName + ' ' + d.properties.class  + ' ' + (d.properties.type||'') : d.properties.layerName; })
+              .attr("dispName", function(d) { return d.properties.name; })
+              .attr("d", tilePath ? tilePath : []);
+        });
+      });
+}
+
+function mousemoved() {
+  info.text(formatLocation(projection.invert(d3.mouse(this)), zoom.scale()));
+}
+
+function matrix3d(scale, translate) {
+  var k = scale / 256, r = scale % 1 ? Number : Math.round;
+  return "matrix3d(" + [k, 0, 0, 0, 0, k, 0, 0, 0, 0, k, 0, r(translate[0] * scale), r(translate[1] * scale), 0, 1 ] + ")";
+}
+
+function prefixMatch(p) {
+  var i = -1, n = p.length, s = document.body.style;
+  while (++i < n) if (p[i] + "Transform" in s) return "-" + p[i].toLowerCase() + "-";
+  return "";
+}
+
+function formatLocation(p, k) {
+  var format = d3.format("." + Math.floor(Math.log(k) / 2 - 2) + "f");
+  return (p[1] < 0 ? format(-p[1]) + "°S" : format(p[1]) + "°N") + " "
+       + (p[0] < 0 ? format(-p[0]) + "°W" : format(p[0]) + "°E");
+}
+
+</script>
