@@ -1,15 +1,23 @@
 var http = require('http'),
   fs = require('fs'),
-  stream = require('./tileStream'),
-  port = 8124,
-  info = function(req, res) {
+  stream = require('./js/tileStream'),
+  port = 8080,
+  file = function(req, res) {
     //res.writeHead(200, {'Content-Type': 'text/html'});
     //res.end('nothing here');
-    var fileStream = fs.createReadStream('./index.html');
+    var path = req.url === '/' ? './index.html' : '.' + req.url;
+    var fileStream = fs.createReadStream(path);
     fileStream.on('data', function(data) {
       res.write(data);
     });
     fileStream.on('end', function() {
+      res.end();
+    });
+    fileStream.on('error', function() {
+      res.writeHead(404, {
+        'Content-Type': 'text/plain'
+      });
+      res.write('404: Not Found');
       res.end();
     });
   },
@@ -32,9 +40,9 @@ var http = require('http'),
     }
   },
   routes = {
-    '/': info,
+    '/': file,
     '/mvt/\\d+?/\\d+?/\\d+?\\..*': getTile,
-    'default': info
+    'default': file
   };
 
 http.createServer(function(req, res) {
