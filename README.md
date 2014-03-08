@@ -1,22 +1,44 @@
-# mapnik-vector-tile-converter
+# Mapnik Vector Tiles to GeoJSON Converter
+### mapnik-vector-tile-converter
 
-This converts Mapnik Vector Tile geometries to a list of latlon or spherical Mercator coordinates.
+This converts Mapnik Vector Tile geometries to GeoJSON format.
+
+## Background
+
+   I was curious how Mapnik Vector Tiles are constructed, and I figured the best way to determine that is by deconstructing them.  I found a [great library](https://github.com/vross/mapnik-vector-tile-converter) that was 90% to my goal, and I added in code to create GeoJSON from it.  If you are looking for production ready code, I'd forward you to [Node Mapnik](https://github.com/mapnik/node-mapnik), but if you're looking to learn more about how Mapik Vector tiles work, this is the place!
+
+## Example
+
+    The example loads tiles from MapBox Streets Vector Tiles, and converts them to geojson using this library.
+
+### Warning
+
+    This example
+
+### Example Usage
+
+    ```
+    npm install
+    cd ./example
+    node server.js
+    ```
 
 ## Dependancies
 
-This code is written in NodeJS. To use it, you need to install:
-Protobuf.js: <https://github.com/dcodeIO/ProtoBuf.js/>
-
+    This code is written in NodeJS. To use it, you need to install:
+    Protobuf.js: <https://github.com/dcodeIO/ProtoBuf.js/>
 
 ## Usage
 
-Look at the code example!
+    No docs on this yet, but you can look at the server.js file in the examples directory to get an idea on how it is converting the pbf Vector Tile files to GeoJSON.
 
 ## Development
 
 ### Run tests
 
+    ```
     mocha tests
+    ```
 
 ### Director
 Calls the appropriate functions (moveTo, lineTo and/or closePath as described in the Mapnik's vector\_tile.proto) for a Mapnik Vector Tile geometry.
