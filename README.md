@@ -51,5 +51,5 @@ Returns the geometry of the tile (= relative coordinates) from MoveTo, LineTo an
 ### Converter
 Changes the geometry relative to the tile into a latitude longitude or Mercator-projected x y list.
 
-### Notes
+### Notes from [vross](https://github.com/vross/)
 This project was made as I tried to understand how PBF tiles work. I had not heard about [Node-Mapnik](https://github.com/mapnik/node-mapnik), which is (really) more efficient to convert PBF tiles to another format. The idea here was to decode PBF tiles in Node and then browserify all the code to use it client-side and get a geometry usable with Leaflet. It should be possible to improve the code to have better performances, but I'm almost sure it will never be as efficient as a server-side PBF decoding in Node with C++ bindings.
