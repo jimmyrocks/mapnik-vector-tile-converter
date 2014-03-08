@@ -19,28 +19,28 @@ This example:
   This example uses the MapBox Streets Vector Tile layer from the MapBox servers, it is only for development.
 
 ### Example Usage
-    ```
-    npm install
-    cd ./example
-    node server.js
-    ```
+```
+npm install
+cd ./example
+node server.js
+```
 
 ## Dependancies
 
-    This code is written in NodeJS. To use it, you need to install:
-    Protobuf.js: <https://github.com/dcodeIO/ProtoBuf.js/>
+This code is written in NodeJS. To use it, you need to install:
+Protobuf.js: <https://github.com/dcodeIO/ProtoBuf.js/>
 
 ## Usage
 
-    No docs on this yet, but you can look at the server.js file in the examples directory to get an idea on how it is converting the pbf Vector Tile files to GeoJSON.
+No docs on this yet, but you can look at the server.js file in the examples directory to get an idea on how it is converting the pbf Vector Tile files to GeoJSON.
 
 ## Development
 
 ### Run tests
 
-    ```
-    mocha tests
-    ```
+```
+mocha tests
+```
 
 ### Director
 Calls the appropriate functions (moveTo, lineTo and/or closePath as described in the Mapnik's vector\_tile.proto) for a Mapnik Vector Tile geometry.
