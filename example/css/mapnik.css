@@ -1,0 +1,259 @@
+.tile {
+  position: absolute;
+  width: 256px;
+  height: 256px;
+}
+.tile path {
+  fill: none;
+  stroke: #000;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.tile .major_road {
+  stroke: #776;
+}
+.tile .minor_road {
+  stroke: #ccb;
+}
+.tile .highway {
+  stroke: #f39;
+  stroke-width: 1.5px;
+}
+.tile .rail {
+  stroke: #7de;
+}
+.tile .water {
+  fill: rgb(180, 208, 208);
+  stroke-width: 0px;
+}
+.tile .building {
+  fill: rgb(193, 176, 175);
+  stroke: rgb(154, 128, 161);
+}
+.tile .road.street {
+  stroke: rgb(254, 254, 254);
+  stroke-width: 2px;
+  stroke-dasharray: 2, 2;
+  stroke-linejoin: round;
+}
+.tile .road.street_limited {
+  stroke: rgb(204, 204, 204);
+  stroke-width: 1px;
+}
+.tile .road.main {
+  stroke: rgb(249, 214, 166);
+  stroke-width: 4px;
+}
+.tile .road.main.primary {
+  stroke: rgb(221, 158, 157);
+  stroke-width: 4px;
+}
+.tile .road.motorway {
+  stroke: rgb(136, 163, 204);
+  stroke-width: 4px;
+}
+.tile .road.motorway_link {
+  stroke: rgb(136, 163, 204);
+  stroke-width: 2px;
+}
+.tile .road.service {
+  stroke: rgb(127, 127, 127);
+  stroke-width: 0.5px;
+}
+.tile .road.service.track {
+  stroke: rgb(154, 103, 0);
+  stroke-width: 0.5px;
+  stroke-dasharray: 5, 5;
+}
+.tile .road.service.driveway {
+  stroke: rgb(154, 103, 0);
+  stroke-width: 0.5px;
+  stroke-dasharray: 5, 5;
+}
+.tile .road.driveway {
+  stroke: rgb(127, 127, 127);
+  stroke-width: 0.5px;
+}
+.tile .road.major_rail {
+  stroke: rgb(100, 100, 100);
+  stroke-width: 0.5px;
+  stroke-dasharray: 10, 10;
+}
+.tile .road.minor_rail {
+  stroke: rgb(160, 160, 160);
+  stroke-width: 0.5px;
+  stroke-dasharray: 10, 10;
+}
+.tile .road.path {
+  stroke: rgb(252, 132, 117);
+  stroke-width: 0.5px;
+  stroke-dasharray: 5, 5;
+}
+.tile .road.path.cycleway {
+  stroke: rgb(4, 0, 255);
+  stroke-width: 0.5px;
+  stroke-dasharray: 5, 5;
+}
+.tile .road.turning_circle {
+  display: none;
+}
+.tile .road.mini_roundabout {
+  display: none;
+}
+.tile .bridge.street {
+  stroke: rgb(254, 254, 254);
+  stroke-width: 2px;
+  stroke-dasharray: 2, 2;
+  stroke-linejoin: round;
+}
+.tile .bridge.street_limited {
+  stroke: rgb(204, 204, 204);
+  stroke-width: 1px;
+}
+.tile .bridge.main {
+  stroke: rgb(249, 214, 166);
+  stroke-width: 4px;
+}
+.tile .bridge.main.primary {
+  stroke: rgb(221, 158, 157);
+  stroke-width: 4px;
+}
+.tile .bridge.motorway {
+  stroke: rgb(136, 163, 204);
+  stroke-width: 4px;
+}
+.tile .bridge.motorway_link {
+  stroke: rgb(136, 163, 204);
+  stroke-width: 2px;
+}
+.tile .bridge.service {
+  stroke: rgb(127, 127, 127);
+  stroke-width: 0.5px;
+}
+.tile .bridge.driveway {
+  stroke: rgb(127, 127, 127);
+  stroke-width: 0.5px;
+}
+.tile .bridge.major_rail {
+  stroke: rgb(100, 100, 100);
+  stroke-width: 0.5px;
+  stroke-dasharray: 10, 10;
+}
+.tile .bridge.minor_rail {
+  stroke: rgb(160, 160, 160);
+  stroke-width: 0.5px;
+  stroke-dasharray: 10, 10;
+}
+.tile .bridge.path {
+  stroke: rgb(252, 132, 117);
+  stroke-width: 0.5px;
+  stroke-dasharray: 5, 5;
+}
+.tile .bridge.path.cycleway {
+  stroke: rgb(4, 0, 255);
+  stroke-width: 0.5px;
+  stroke-dasharray: 5, 5;
+}
+.tile .bridge.turning_circle {
+  display: none;
+}
+.tile .tunnel.street {
+  stroke: rgb(254, 254, 254);
+  stroke-width: 2px;
+  stroke-dasharray: 2, 2;
+  stroke-linejoin: round;
+}
+.tile .tunnel.street_limited {
+  stroke: rgb(204, 204, 204);
+  stroke-width: 1px;
+}
+.tile .tunnel.main {
+  stroke: rgb(249, 214, 166);
+  stroke-width: 4px;
+}
+.tile .tunnel.main.primary {
+  stroke: rgb(221, 158, 157);
+  stroke-width: 4px;
+}
+.tile .tunnel.motorway {
+  stroke: rgb(136, 163, 204);
+  stroke-width: 4px;
+}
+.tile .tunnel.motorway_link {
+  stroke: rgb(136, 163, 204);
+  stroke-width: 2px;
+}
+.tile .tunnel.service {
+  stroke: rgb(127, 127, 127);
+  stroke-width: 0.5px;
+}
+.tile .tunnel.driveway {
+  stroke: rgb(127, 127, 127);
+  stroke-width: 0.5px;
+}
+.tile .tunnel.major_rail {
+  stroke: rgb(100, 100, 100);
+  stroke-width: 0.5px;
+  stroke-dasharray: 10, 10;
+}
+.tile .tunnel.minor_rail {
+  stroke: rgb(160, 160, 160);
+  stroke-width: 0.5px;
+  stroke-dasharray: 10, 10;
+}
+.tile .tunnel.path {
+  stroke: rgb(252, 132, 117);
+  stroke-width: 0.5px;
+  stroke-dasharray: 5, 5;
+}
+.tile .tunnel.path.cycleway {
+  stroke: rgb(4, 0, 255);
+  stroke-width: 0.5px;
+  stroke-dasharray: 5, 5;
+}
+.tile .tunnel.turning_circle {
+  display: none;
+}
+.tile .landuse {
+  fill: red;
+}
+.tile .landuse.park {
+  fill: rgb(197, 229, 178);
+  stroke-width: 0px;
+}
+.tile .landuse.parking {
+  fill: rgb(246, 239, 179);
+  stroke-width: 0px;
+}
+.tile .landuse.pitch {
+  fill: rgb(135, 212, 174);
+  stroke-width: 0px;
+}
+.tile .landuse.cemetery {
+  fill: rgb(168, 202, 173);
+  stroke-width: 0px;
+}
+.tile .landuse.cemetery {
+  fill: rgb(168, 202, 173);
+  stroke-width: 0px;
+}
+.tile .landuse.hospital {
+  fill: rgb(240, 240, 215);
+  stroke-width: 0px;
+}
+.tile .landuse.school {
+  fill: rgb(240, 240, 230);
+  stroke-width: 0px;
+}
+.tile .landuse.industrial {
+  fill: rgb(232, 230, 225);
+  stroke-width: 0px;
+}
+.tile .landuse.wood {
+  fill: rgb(159, 208, 130);
+  stroke-width: 0px;
+}
+.tile .landuse.sand {
+  fill: rgb(254, 241, 183);
+  stroke-width: 0px;
+}
