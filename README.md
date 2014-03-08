@@ -9,11 +9,13 @@ This converts Mapnik Vector Tile geometries to GeoJSON format.
 
 ## Example
 
-    The example loads tiles from MapBox Streets Vector Tiles, and converts them to geojson using this library.
+    The example loads tiles from MapBox Streets Vector Tiles, converts them to geojson using this library, and creates a d3 map out of them.
+    
+    ![](https://raw.github.com/jimmyrocks/mapnik-vector-tile-converter/master/example/img/screen_shot.png)
 
 ### Warning
 
-    This example
+    This example uses the MapBox Streets Vector Tile layer from the MapBox servers, it is only for development. You will need to have a contract with MapBox to use these tiles.
 
 ### Example Usage
 
