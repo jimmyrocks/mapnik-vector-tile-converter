@@ -8,17 +8,17 @@ This converts Mapnik Vector Tile geometries to GeoJSON format.
    I was curious how Mapnik Vector Tiles are constructed, and I figured the best way to determine that is by deconstructing them.  I found a [great library](https://github.com/vross/mapnik-vector-tile-converter) that was 90% to my goal, and I added in code to create GeoJSON from it.  If you are looking for production ready code, I'd forward you to [Node Mapnik](https://github.com/mapnik/node-mapnik), but if you're looking to learn more about how Mapik Vector tiles work, this is the place!
 
 ## Example
-
-    The example loads tiles from MapBox Streets Vector Tiles, converts them to geojson using this library, and creates a d3 map out of them.
-    
+This example:
+  * Loads tiles from MapBox Streets Vector Tiles
+  * Converts them to geojson using this library
+  * Draws them on a Map using [D3](https://github.com/mbostock/d3)
+   
     ![](https://raw.github.com/jimmyrocks/mapnik-vector-tile-converter/master/example/img/screen_shot.png)
 
 ### Warning
-
-    This example uses the MapBox Streets Vector Tile layer from the MapBox servers, it is only for development. You will need to have a contract with MapBox to use these tiles.
+  This example uses the MapBox Streets Vector Tile layer from the MapBox servers, it is only for development.
 
 ### Example Usage
-
     ```
     npm install
     cd ./example
