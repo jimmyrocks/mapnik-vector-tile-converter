@@ -23,6 +23,8 @@ This example:
 npm install
 cd ./example
 node server.js
+
+Open: [http://localhost:8080](http://localhost:8080) in your favorite browser. (It's really SVG/D3 heavy, so I'd suggest Chrome)
 ```
 
 ## Dependancies
