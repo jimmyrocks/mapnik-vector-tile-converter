@@ -1,20 +1,16 @@
 body {
   margin: 0;
 }
-
 .map {
   position: relative;
   overflow: hidden;
-  background-color: rgb(241,238,232);
+  background-color: rgb(241, 238, 232);
 }
-
 .layer {
   position: absolute;
 }
-
 .info {
   position: absolute;
   bottom: 10px;
   left: 10px;
 }
-
