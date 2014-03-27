@@ -7,40 +7,42 @@ This converts Mapnik Vector Tile geometries to GeoJSON format.
 
    I was curious how Mapnik Vector Tiles are constructed, and I figured the best way to determine that is by deconstructing them.  I found a [great library](https://github.com/vross/mapnik-vector-tile-converter) that was 90% to my goal, and I added in code to create GeoJSON from it.  If you are looking for production ready code, I'd forward you to [Node Mapnik](https://github.com/mapnik/node-mapnik), but if you're looking to learn more about how Mapik Vector tiles work, this is the place!
 
+## Dependancies
+
+This code is written in [NodeJS](http://nodejs.org), and it installs the package [Protobuf.js](https://www.npmjs.org/package/protobufjs).
+
 ## Example
 This example:
   * Loads tiles from MapBox Streets Vector Tiles
   * Converts them to geojson using this library
   * Draws them on a Map using [D3](https://github.com/mbostock/d3)
-   
-    ![](https://raw.github.com/jimmyrocks/mapnik-vector-tile-converter/master/example/img/screen_shot.png)
+
+![](https://raw.github.com/jimmyrocks/mapnik-vector-tile-converter/master/example/img/screen_shot.png)
 
 ### Warning
   This example uses the MapBox Streets Vector Tile layer from the MapBox servers, it is only for development.
 
 ### Example Usage
-    ```
-    npm install
-    cd ./example
-    node server.js
-    ```
-
-## Dependancies
-
-    This code is written in NodeJS. To use it, you need to install:
-    Protobuf.js: <https://github.com/dcodeIO/ProtoBuf.js/>
+```
+git clone https://github.com/jimmyrocks/mapnik-vector-tile-converter.git
+cd mapnik-vector-tile-converter
+npm install
+cd example
+node server.js
+```
+Open: [http://localhost:8080](http://localhost:8080) in your favorite browser. (It's really SVG/D3 heavy, so I'd suggest [Chrome](https://www.google.com/chrome))
 
 ## Usage
 
-    No docs on this yet, but you can look at the server.js file in the examples directory to get an idea on how it is converting the pbf Vector Tile files to GeoJSON.
+No docs on this yet, but you can look at the server.js file in the examples directory to get an idea on how it is converting the pbf Vector Tile files to GeoJSON.
 
 ## Development
 
 ### Run tests
 
-    ```
-    mocha tests
-    ```
+```
+mocha tests
+```
 
 ### Director
 Calls the appropriate functions (moveTo, lineTo and/or closePath as described in the Mapnik's vector\_tile.proto) for a Mapnik Vector Tile geometry.
