@@ -13,7 +13,7 @@ deflate = function (buffer, callback) {
 // This is the routine used to read the file against the proto file
 parse = function (data, callback) {
   // Check if the file is compressed, and if so, decompress it
-  if (!data) {
+  if (!data || data[0].toString(16) === '7b') {
     callback(null);
   } else if (data[0].toString(16) === '78' && (data[1].toString(16) === '01' || data[1].toString(16) === '9c' || data[1].toString(16) === 'da')) {
     // http://stackoverflow.com/questions/9050260/what-does-a-zlib-header-look-like
@@ -26,6 +26,7 @@ parse = function (data, callback) {
       parse(defalted, callback);
     });
   } else {
+    console.log(data[0].toString(16));
     callback(mapnikVector.tile.decode(data).layers);
   }
 };
