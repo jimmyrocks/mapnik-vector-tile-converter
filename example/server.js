@@ -25,7 +25,7 @@ var http = require('http'),
     var zxy = req.url.replace(/[^\d\/]/g, '').split('/');
     zxy.shift();
     zxy.shift();
-    if (zxy[0] < '15') {
+    if (parseInt(zxy[0], 10) < '15') {
       res.writeHead(200, {
         'Content-Type': 'application/json'
       });
