@@ -20,9 +20,8 @@ var mvt = require('../../src/nodePBFreader.js'),
 exports = module.exports = function(zxy, callback) {
   // http://b.tiles.mapbox.com/v3/mapbox.mapbox-streets-v4/14/4748/6227.vector.pbf
   var keys = ['a', 'b', 'c', 'd'],
-    mapId = 'mapbox.mapbox-streets-v4',
+    mapId = 'nps.znvlmboc', ///'nps.2s79o1or', /'nps.07oxn7b9', //'mapbox.mapbox-streets-v4', //'nps.07oxn7b9',
     url = 'http://' + keys[[(parseInt(zxy[1], 10) * 31 + parseInt(zxy[2], 10)) % 4]] + '.tiles.mapbox.com/v3/' + mapId  + '/' + zxy.join('/') + '.vector.pbf';
-
 
   getUrl(url, function(chunks) {
     mvt.parse(chunks, function(data) {
@@ -30,7 +29,7 @@ exports = module.exports = function(zxy, callback) {
         'z': parseInt(zxy[0], 10),
         'x': parseInt(zxy[1], 10),
         'y': parseInt(zxy[2], 10)
-      }, ['water', 'building', 'road', 'bridge', 'tunnel', 'landuse']));
+      }/*, ['water', 'building', 'road', 'bridge', 'tunnel', 'landuse']*/));
       //callback(tile.convertTile(data, {'z': '14', 'x': 4748, 'y': 6227}));
       //callback(chunks.length);
       //var md5 = crypto.createHash('md5');
