@@ -1,7 +1,7 @@
 var http = require('http'),
   fs = require('fs'),
   stream = require('./js/tileStream'),
-  port = 8080,
+  port = 3002,
   file = function(req, res) {
     //res.writeHead(200, {'Content-Type': 'text/html'});
     //res.end('nothing here');
