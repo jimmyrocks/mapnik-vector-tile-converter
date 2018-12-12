@@ -68,7 +68,7 @@ exports = module.exports = function(feature, tilePoint, layer) {
     },
     'properties': {
     },
-    'id': feature.id.low
+    'id': (feature.id && feature.id.low) || Math.random().toString(32).substr(2)
   },
   decoder = new director.Decoder(),
   tags = parseTags(feature.tags, layer);
