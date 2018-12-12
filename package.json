@@ -2,7 +2,11 @@
   "name": "mapnik-vector-tile-converter",
   "version": "0.0.1",
   "description": "a node.js protobuf reader for mapnik vector tiles",
-  "keywords": ["OpenStreetMap", "Vector", "Tiles"],
+  "keywords": [
+    "OpenStreetMap",
+    "Vector",
+    "Tiles"
+  ],
   "repository": {
     "type": "git",
     "url": "http://github.com/jimmyrocks/mapnik-vector-tile-converter"
