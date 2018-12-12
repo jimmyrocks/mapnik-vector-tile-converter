@@ -23,7 +23,8 @@ exports = module.exports = function(zxy, callback) {
     //mapId = 'nps.znvlmboc', ///'nps.2s79o1or', /'nps.07oxn7b9', //'mapbox.mapbox-streets-v4', //'nps.07oxn7b9',
     key = keys[[(parseInt(zxy[1], 10) * 31 + parseInt(zxy[2], 10)) % 4]],
     mapId = 'mapbox.mapbox-streets-v4',
-    url = 'http://' + key + '.tiles.mapbox.com/v3/' + mapId  + '/' + zxy.join('/') + '.vector.pbf';
+    // url = 'http://' + key + '.tiles.mapbox.com/v3/' + mapId  + '/' + zxy.join('/') + '.vector.pbf';
+    url = 'http://192.241.157.193:3001/tiles/' + zxy.join('/');
 
   getUrl(url, function(chunks) {
     mvt.parse(chunks, function(data) {
